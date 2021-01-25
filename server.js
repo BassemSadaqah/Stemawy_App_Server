@@ -23,14 +23,14 @@ const jwtAccessTokenSecret = '#STEM_METS!123';
 
 // app.use(session({secret: '#STEM_METS!123',saveUninitialized:true,resave:true})); //Check saveUninitialized later in prod
 
-global.client = new Client({
+global.client = new Client((process.env.DATABASE_URL || {
     user:'lpdmrrbmssaswr',
     password:'cceced9e79fb4015c02cb75524580bca430a4c126ed4b1b3f59e8c65f2258f9e',
     host:'ec2-3-231-241-17.compute-1.amazonaws.com',
     database:'ddqbru3leu2qd9',
     port:5432,
     ssl:true
-})
+}))
 client.connect()
 
 // const update_points = (data,i) => {
