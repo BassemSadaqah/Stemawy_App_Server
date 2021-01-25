@@ -23,7 +23,10 @@ const jwtAccessTokenSecret = '#STEM_METS!123';
 
 // app.use(session({secret: '#STEM_METS!123',saveUninitialized:true,resave:true})); //Check saveUninitialized later in prod
 
-global.client = new Client(process.env.DATABASE_URL2)
+global.client = new Client({
+    connectionString: process.env.DATABASE_URL,
+     ssl: { rejectUnauthorized: false }
+})
 client.connect()
 
 // const update_points = (data,i) => {
