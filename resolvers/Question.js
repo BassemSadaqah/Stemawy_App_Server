@@ -7,7 +7,7 @@ module.exports=(parent,args,req)=>{
     question_id=sqli(args.id)
     return client.query(`SELECT * FROM questions where id=${question_id}`)
     .then(RES=>{
-        if(RES.rows[0].length==0) throw new Error('Question Not Found')
+        if(RES.rows.length==0) throw new Error('Question Not Found')
         let data=RES.rows[0]
         let choices = [data.ans_a, data.ans_b, data.ans_c, data.ans_d, data.ans_e, data.ans_f, data.ans_g, data.ans_h].splice(0,data.ans_num)
         return {...data,choices}

@@ -3,8 +3,8 @@ const validate_form=require('../utils/validate_form')
 const JsonError = require('./JsonError')
 
 module.exports=(parent,args,req)=>{
-    if(!req.isAuth) throw new JsonError({code:400,msg:'Not Authorized'})
-    const [user_id,limit]=sqli(args.user_id,args.limit)
+    // if(!req.isAuth) throw new JsonError({code:400,msg:'Not Authorized'})
+    const [user_id,limit]=sqli(parent.id,args.limit)
     console.log(user_id)
     return client.query(`SELECT * FROM questions where user_id=${user_id} ORDER BY time DESC limit ${limit}`)
     .then(RES=>{

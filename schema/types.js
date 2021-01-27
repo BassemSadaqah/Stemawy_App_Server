@@ -7,17 +7,23 @@ const {
     GraphQLList,
     GraphQLBoolean
 }=GraphQL
+const userQuestions = require('../resolvers/userQuestions')
 const sqli= require('../utils/sqli')
 const userType=new GraphQLObjectType({
     name:'User',
-    fields:{
+    fields:()=>({
         id:{type:GraphQLInt},
         first_name:{type:GraphQLString},
         last_name:{type:GraphQLString},
         email:{type:GraphQLString},
         profile_pic:{type:GraphQLString},
         points:{type:GraphQLInt},
-    }
+        questions:{
+            type:new GraphQLList(questionType),
+            args:{limit:{type:GraphQLInt}},
+            resolve: userQuestions
+        }
+    })
 })
 
 const questionType=new GraphQLObjectType({

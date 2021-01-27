@@ -1,6 +1,8 @@
 const GraphQL=require('graphql')
 const {userType,questionType} =require('./types')
+const User=require('../resolvers/User')
 const Question=require('../resolvers/Question')
+const Leaderboard=require('../resolvers/Leaderboard')
 const userQuestions=require('../resolvers/userQuestions')
 const {
     GraphQLObjectType,
@@ -8,6 +10,7 @@ const {
     GraphQLInt,
     GraphQLString,
     GraphQLList,
+    GraphQLNonNull
 }=GraphQL
 
 const RootQuery=new GraphQLObjectType({
@@ -15,20 +18,18 @@ const RootQuery=new GraphQLObjectType({
     fields:{
         user:{
             type:userType,
-            args:{id:{type:GraphQLInt}},
-            resolve(parent,args,req){
-                return {id:args.id,name:'Bassem'}
-            }
+            args:{id:{type:GraphQLNonNull(GraphQLInt)}},
+            resolve:User
         },
         question:{
             type:questionType,
             args:{id:{type:GraphQLInt}},
             resolve:Question
         },
-        userQuestions:{
-            type:new GraphQLList(questionType),
-            args:{user_id:{type:GraphQLInt},limit:{type:GraphQLInt}},
-            resolve:userQuestions
+        leaderboard:{
+            type:new GraphQLList(userType),
+            args:{count:{type:GraphQLInt}},
+            resolve:Leaderboard
         }
     }
 })
