@@ -4,7 +4,8 @@ const validate_form=require('../utils/validate_form')
 module.exports=(parent,args,req)=>{
     // if(!req.isAuth) return{success:false,err_msg:'Not Authroized'}
     if (!req.isAuth) throw new Error('Not Authorized')
-    user_id=req.user.id
+    user_id=req.User.id
+    console.log(user_id)
     var {question,img,choices,answer}=args
     choices=choices.filter(v=>v!='')
     console.log(choices)

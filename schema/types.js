@@ -9,6 +9,7 @@ const {
 }=GraphQL
 const userQuestions = require('../resolvers/userQuestions')
 const sqli= require('../utils/sqli')
+const User = require('../resolvers/User')
 const userType=new GraphQLObjectType({
     name:'User',
     fields:()=>({
@@ -16,6 +17,7 @@ const userType=new GraphQLObjectType({
         first_name:{type:GraphQLString},
         last_name:{type:GraphQLString},
         email:{type:GraphQLString},
+        fb_id:{type:GraphQLInt},
         profile_pic:{type:GraphQLString},
         points:{type:GraphQLInt},
         questions:{
@@ -32,10 +34,11 @@ const questionType=new GraphQLObjectType({
         id:{type:GraphQLInt},
         user:{
             type:userType,
-            resolve:(parent,args)=>{
-                const user_id=sqli(parent.user_id)
-                return client.query(`SELECT id,first_name,last_name,email,profile_pic,points from users where id=${user_id}`).then((RES)=>(RES.rows[0]))
-            }},
+            resolve:User},
+            // resolve:(parent,args)=>{
+            //     const user_id=sqli(parent.user_id)
+            //     return client.query(`SELECT id,first_name,last_name,email,profile_pic,points from users where id=${user_id}`).then((RES)=>(RES.rows[0]))
+            // }},
         question:{type:GraphQLString},
         img:{type:GraphQLString},
         question_img:{type:GraphQLString},
