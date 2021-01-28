@@ -201,12 +201,13 @@ app.post('/fb-login', passport.authenticate('facebook-token'), (req, res) => {
                     for(var i=0;i<RES.rows.length;i++){
                         console.log(RES.rows[i].isfb)
                         if(RES.rows[i].isfb==1){
-                            const user_data=RES.rows[i]
+                            let user_data=RES.rows[i]
+                            user_data.profile_pic = `https://graph.facebook.com/v9.0/${user_data.fb_id}/picture`
                             const accessToken = jwt.sign(user_data, jwtAccessTokenSecret, {
                                 algorithm: "HS256",
                                 // expiresIn: process.env.ACCESS_TOKEN_LIFE
                             });
-                            resp={success:true,accessToken,user:RES.rows[i]}
+                            resp={success:true,accessToken,user:user_data}
                             break
                         }else {
                             resp={success:false,err_msg:'email already exists'}
