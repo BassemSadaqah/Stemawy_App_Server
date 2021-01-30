@@ -1,5 +1,6 @@
 const GraphQL=require('graphql')
 const AddQuestion = require('../resolvers/AddQuestion')
+const EditUser = require('../resolvers/EditUser')
 const {userType,questionType,mutationType} =require('./types')
 
 const {
@@ -22,6 +23,16 @@ const mutation=new GraphQLObjectType({
                 answer:{type:GraphQLInt}
             },
             resolve:AddQuestion
+        },
+        editUser:{
+            type:mutationType,
+            args:{
+                first_name:{type:GraphQLString},
+                last_name:{type:GraphQLString},
+                email:{type:GraphQLString},
+                bio:{type:GraphQLString},
+            },
+            resolve:EditUser
         }
     }})
 module.exports=mutation

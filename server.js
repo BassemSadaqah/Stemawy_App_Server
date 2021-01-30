@@ -87,7 +87,7 @@ const isAuthMiddleware=(req,res,next)=>{
             }else{
                 payload.profile_pic = 'https://i.stack.imgur.com/l60Hf.png'
             }
-            console.log(payload)
+            // console.log(payload)
             req.isAuth = true
             req.User = payload
             req.user_id = payload.id
