@@ -22,7 +22,7 @@ const userType=new GraphQLObjectType({
         points:{type:GraphQLInt},
         questions:{
             type:new GraphQLList(questionType),
-            args:{limit:{type:GraphQLInt}},
+            args:{limit:{type:GraphQLInt},offset:{type:GraphQLInt}},
             resolve: userQuestions
         }
     })
