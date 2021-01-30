@@ -6,11 +6,16 @@ module.exports=(parent,args,req)=>{
     // if(parent.id){
     //     var id=sqli(args.parent.id)
     // }
-    var id=sqli(args.id)!='NULL'?sqli(args.id):sqli(parent.user_id)
-    if(id=='NULL' && req.user_id){
-        id=user_id
+    var id='NULL'
+    if(parent && parent.user_id){
+        id = sqli(parent.user_id)
+    }else if(args && args.id){
+        id = sqli(args.id)
+    }else if(req.isAuth && req.user_id){
+        id=req.user_id
     }
-    console.log(id)
+
+    console.log()
     return client.query(`select * from (select id,first_name,last_name,email,fb_id,profile_pic,points,rank() over (order by points desc) as rank from users) t where id=${id}`)
     .then(RES=>{
         if(RES.rows.length==0) throw new Error('User Not Found') //will never react to the front-end
