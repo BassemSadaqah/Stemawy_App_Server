@@ -161,7 +161,7 @@ app.post('/register',(req,res)=>{
         return
     }
     var [first_name,last_name,email,password]=sqli(first_name,last_name,email,password)
-    client.query(`INSERT INTO USERS (first_name,last_name,email,password) VALUES (${[first_name,last_name,email,password].join(',')})  RETURNING id,first_name,last_name,email,points`)
+    client.query(`INSERT INTO USERS (first_name,last_name,email,password,points) VALUES (${[first_name,last_name,email,password].join(',')},0)  RETURNING id,first_name,last_name,email,points`)
     .then(RES=>{
         const user=RES.rows[0]
         const accessToken = jwt.sign(user, jwtAccessTokenSecret,{

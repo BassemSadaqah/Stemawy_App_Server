@@ -20,6 +20,7 @@ const userType=new GraphQLObjectType({
         fb_id:{type:GraphQLInt},
         profile_pic:{type:GraphQLString},
         points:{type:GraphQLInt},
+        rank:{type:GraphQLInt},
         questions:{
             type:new GraphQLList(questionType),
             args:{limit:{type:GraphQLInt},offset:{type:GraphQLInt}},
