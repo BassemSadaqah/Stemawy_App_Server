@@ -90,6 +90,7 @@ const isAuthMiddleware=(req,res,next)=>{
             console.log(payload)
             req.isAuth = true
             req.User = payload
+            req.user_id = payload.id
         } catch (e) {
             console.log('jwt error')
             req.isAuth = false
