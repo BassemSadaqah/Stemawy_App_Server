@@ -18,7 +18,7 @@ const RootQuery=new GraphQLObjectType({
     fields:{
         user:{
             type:userType,
-            args:{id:{type:GraphQLNonNull(GraphQLInt)}},
+            args:{id:{type:GraphQLInt}},
             resolve:User
         },
         question:{
