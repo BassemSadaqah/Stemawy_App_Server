@@ -9,8 +9,6 @@ module.exports=(parent,args,req)=>{
     var id=sqli(args.id)!='NULL'?sqli(args.id):sqli(parent.user_id)
     if(id=='NULL' && req.user_id){
         id=user_id
-    }else{
-        throw new Error('Invalid ID')
     }
     console.log(id)
     return client.query(`select * from (select id,first_name,last_name,email,fb_id,profile_pic,points,rank() over (order by points desc) as rank from users) t where id=${id}`)
