@@ -14,7 +14,7 @@ module.exports=(parent,args,req)=>{
     }else if(req.isAuth && req.user_id){
         id=req.user_id
     }
-    return client.query(`select * from (select id,first_name,last_name,email,fb_id,profile_pic,points,rank() over (order by points desc) as rank from users) t where id=${id}`)
+    return client.query(`select * from (select id,first_name,last_name,email,fb_id,profile_pic,bio,points,rank() over (order by points desc) as rank from users) t where id=${id}`)
     .then(RES=>{
         if(RES.rows.length==0) throw new Error('User Not Found') //will never react to the front-end
         let data=RES.rows[0]

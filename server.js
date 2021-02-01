@@ -135,7 +135,7 @@ app.post('/login',ash(async(req,res)=>{
         return
     }
     var [email,password]=sqli(email,password)
-    const RES =await client.query(`SELECT id,first_name,last_name,email,points FROM USERS WHERE email=${email} AND password=${password} AND isfb is NULL`)
+    const RES =await client.query(`SELECT id,first_name,last_name,email,bio,points FROM USERS WHERE email=${email} AND password=${password} AND isfb is NULL`)
     if(RES.rows.length==0){
         res.json({success:false,err_msg:'wrong username or password'})
     }else{
@@ -162,7 +162,7 @@ app.post('/register',(req,res)=>{
         return
     }
     var [first_name,last_name,email,password]=sqli(first_name,last_name,email,password)
-    client.query(`INSERT INTO USERS (first_name,last_name,email,password,points) VALUES (${[first_name,last_name,email,password].join(',')},0)  RETURNING id,first_name,last_name,email,points`)
+    client.query(`INSERT INTO USERS (first_name,last_name,email,password,points) VALUES (${[first_name,last_name,email,password].join(',')},0)  RETURNING id,first_name,last_name,bio,email,points`)
     .then(RES=>{
         const user=RES.rows[0]
         const accessToken = jwt.sign(user, jwtAccessTokenSecret,{
@@ -196,7 +196,7 @@ app.post('/fb-login', passport.authenticate('facebook-token'), (req, res) => {
             if(user.photos.length){
                 profile_pic=sqli(user.photos[0].value)
             }
-            client.query(`SELECT id,first_name,last_name,email,fb_id,profile_pic,isfb from users where fb_id=${fb_id} or email=${email}`).then(RES=>{
+            client.query(`SELECT id,first_name,last_name,bio,email,fb_id,profile_pic,isfb from users where fb_id=${fb_id} or email=${email}`).then(RES => {
                 if(RES.rows.length!=0){
                     var resp={success:false}
                     for(var i=0;i<RES.rows.length;i++){
@@ -216,7 +216,7 @@ app.post('/fb-login', passport.authenticate('facebook-token'), (req, res) => {
                     }
                     res.json(resp)
                 }else{
-                    client.query(`INSERT INTO users (first_name,middle_name,last_name,email,profile_pic,fb_id,isfb,points) VALUES(${[first_name,middle_name,last_name,email,profile_pic,fb_id].join(',')},1,0) returning id,first_name,last_name,email,fb_id,profile_pic`).then(RES=>{
+                    client.query(`INSERT INTO users (first_name,middle_name,last_name,email,profile_pic,fb_id,isfb,points) VALUES(${[first_name,middle_name,last_name,email,profile_pic,fb_id].join(',')},1,0) returning id,first_name,last_name,bio,email,fb_id,profile_pic`).then(RES=>{
                         if(RES.rows.length){
                             const accessToken = jwt.sign(RES.rows[0], jwtAccessTokenSecret,{
                                 algorithm: "HS256",

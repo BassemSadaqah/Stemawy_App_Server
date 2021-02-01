@@ -16,6 +16,7 @@ const userType=new GraphQLObjectType({
         id:{type:GraphQLInt},
         first_name:{type:GraphQLString},
         last_name:{type:GraphQLString},
+        bio:{type:GraphQLString},
         email:{type:GraphQLString},
         fb_id:{type:GraphQLInt},
         profile_pic:{type:GraphQLString},
