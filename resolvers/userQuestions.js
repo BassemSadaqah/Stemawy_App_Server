@@ -4,7 +4,8 @@ const JsonError = require('./JsonError')
 
 module.exports=(parent,args,req)=>{
     // if(!req.isAuth) throw new JsonError({code:400,msg:'Not Authorized'})
-    const [user_id,limit,offset]=sqli(parent.id,args.limit,args.offset)
+
+    const [user_id,limit,offset]=sqli(Number(parent.id),Number(args.limit),Number(args.offset))
     console.log(user_id)
     return client.query(`SELECT * FROM questions where user_id=${user_id} ORDER BY time DESC limit ${limit} offset ${offset}`)
     .then(RES=>{

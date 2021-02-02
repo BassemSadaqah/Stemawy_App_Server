@@ -18,7 +18,7 @@ const FacebookTokenStrategy = require('passport-facebook-token');
 const jwtAccessTokenSecret = '#STEM_METS!123';
 app.use(express.static('public'));
 app.use(bodyParser.json({
-    limit: '50mb',
+    limit: '10mb',
     extended: true
 }))
 // FacebookStrategy = require('passport-facebook').Strategy;
