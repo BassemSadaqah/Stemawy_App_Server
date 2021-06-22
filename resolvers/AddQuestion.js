@@ -16,7 +16,7 @@ module.exports=(parent,args,req)=>{
     var [ans_a,ans_b,ans_c,ans_d,ans_e,ans_f,ans_g,ans_h]=choices
     var ans_num=choices.length;
     var [user_id,question,ans_a,ans_b,ans_c,ans_d,ans_e,ans_f,ans_g,ans_h,ans_num,img,answer] = sqli(user_id,question,ans_a,ans_b,ans_c,ans_d,ans_e,ans_f,ans_g,ans_h,ans_num,img,answer)
-    return client.query(`INSERT INTO QUESTIONS (user_id,question,ans_a,ans_b,ans_c,ans_d,ans_e,ans_f,ans_g,ans_h,ans_num,img,answer) VALUES (${user_id},${question},${ans_a},${ans_b},${ans_c},${ans_d},${ans_e},${ans_f},${ans_g},${ans_h},${ans_num},${img},${answer}) returning id`)
+    return client.query(`INSERT INTO QUESTIONS (user_id,question,ans_a,ans_b,ans_c,ans_d,ans_e,ans_f,ans_g,ans_h,ans_num,question_img,answer) VALUES (${user_id},${question},${ans_a},${ans_b},${ans_c},${ans_d},${ans_e},${ans_f},${ans_g},${ans_h},${ans_num},${img},${answer}) returning id`)
     .then(RES=>({id:RES.rows[0].id,success:true}))
     .catch(err=>({success:false,err_msg:'Something Went Wrong'}))
 }
