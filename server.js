@@ -49,14 +49,21 @@ passport.deserializeUser(function (user, done) {
 if (process.env.DATABASE_URL){
     pgClient=({connectionString: process.env.DATABASE_URL,ssl: { rejectUnauthorized: false }})
 }else{
-    pgClient = {
-        user: 'lpdmrrbmssaswr',
-        password: 'cceced9e79fb4015c02cb75524580bca430a4c126ed4b1b3f59e8c65f2258f9e',
-        host: 'ec2-3-231-241-17.compute-1.amazonaws.com',
-        database: 'ddqbru3leu2qd9',
-        port: 5432,
-        ssl: true
+    pgClient={
+        user: 'postgres',
+        password: 'wasdWASD!123',
+        database: 'stemoverflow',
+        port: '5432',
+        host: 'localhost'
     }
+    // pgClient = {
+    //     user: 'lpdmrrbmssaswr',
+    //     password: 'cceced9e79fb4015c02cb75524580bca430a4c126ed4b1b3f59e8c65f2258f9e',
+    //     host: 'ec2-3-231-241-17.compute-1.amazonaws.com',
+    //     database: 'ddqbru3leu2qd9',
+    //     port: 5432,
+    //     ssl: true
+    // }
 }
 global.client = new Client(pgClient)
 
