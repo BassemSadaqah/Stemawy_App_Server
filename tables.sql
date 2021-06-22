@@ -13,6 +13,12 @@ CREATE TABLE users (
    time TIMESTAMP DEFAULT now()
   );
 
+ALTER TABLE users
+ADD COLUMN middle_name VARCHAR(50),
+ADD COLUMN bio VARCHAR(250),
+ADD COLUMN points INT,
+
+
 CREATE TABLE questions (
    id serial PRIMARY KEY,
    user_id INT NOT NULL,

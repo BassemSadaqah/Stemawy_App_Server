@@ -12,7 +12,7 @@ module.exports = (parent, args, req) => {
             if (!data) return []
             data = data.map(r => {
                 let choices = [r.ans_a, r.ans_b, r.ans_c, r.ans_d, r.ans_e, r.ans_f, r.ans_g, r.ans_h].splice(0, r.ans_num)
-                return { ...r, choices }
+                return { ...r, choices,img:r.question_img }
             })
             return data
         }).catch(err => {
