@@ -6,7 +6,7 @@ module.exports = (parent, args, req) => {
     // question_id = sqli(args.id)
     var limit=Number(args.limit)<25?Number(args.limit):5
     limit=limit?sqli(limit):5
-    return client.query(`SELECT * FROM questions  ORDER BY RANDOM() where isapproved=1 LIMIT ${limit}`)
+    return client.query(`SELECT * FROM questions where isapproved=1 ORDER BY RANDOM() LIMIT ${limit}`)
         .then(RES => {
             var data = RES.rows
             if (!data) return []
